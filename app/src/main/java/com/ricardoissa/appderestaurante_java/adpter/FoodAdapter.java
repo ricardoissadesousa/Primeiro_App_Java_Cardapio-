@@ -1,0 +1,61 @@
+package com.ricardoissa.appderestaurante_java.adpter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ricardoissa.appderestaurante_java.databinding.FoodItemBinding;
+import com.ricardoissa.appderestaurante_java.model.Food;
+
+import java.sql.Array;
+import java.util.ArrayList;
+
+public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
+    private final ArrayList<Food>foodList;
+    private final Context context ;
+
+    public FoodAdapter(ArrayList<Food> foodList, Context context) {
+        this.foodList = foodList;
+        this.context = context;
+    }
+
+
+    @NonNull
+    @Override
+    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        FoodItemBinding listItem;
+        listItem = FoodItemBinding.inflate(LayoutInflater.from(context),parent,false);
+        return new FoodViewHolder(listItem);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
+    holder.binding.imgFood.setBackgroundResource(foodList.get(position).getImgFood());
+    holder.binding.textFoodName.setText(foodList.get(position).getFoodName());
+    holder.binding.textFoodDescription.setText(foodList.get(position).getFoodDescription());
+    holder.binding.textPrice.setText(foodList.get(position).getPrince());
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return foodList.size();
+    }
+
+    public static class FoodViewHolder extends RecyclerView.ViewHolder{
+
+        FoodItemBinding binding;
+
+        public FoodViewHolder(FoodItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+
+
+}
